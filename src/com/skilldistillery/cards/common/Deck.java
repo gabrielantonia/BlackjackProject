@@ -25,10 +25,8 @@ public class Deck {
 		return size;
 	}
 
-	public Card dealCard(int numberOfCards) {
-		Card card = null;
-		card = deck.remove(0);
-		return card;
+	public Card dealCard() {
+		return deck.remove(0);
 	}
 
 	public ArrayList<Card> dealCards(int numberOfCards) {
