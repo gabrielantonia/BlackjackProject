@@ -38,20 +38,28 @@ public class BlackJackTable {
 
 	public boolean checkForWinner() {
 		boolean isWinner = false;
-		if (playerWin() == true) {
+		if (playerWin() == true || checkForBustDealer() == true) {
 			System.out.println(player.playerHand.toString() + " beats " + dealer.dealerHand.toString());
 			System.out.println("You win, great job!");
 			isWinner = true;
-		}
-		if (dealerWin() == true) {
+		} else if (dealerWin() == true || checkForBustPlayer() == true) {
 			System.out.println(dealer.dealerHand.toString() + " beats " + player.playerHand.toString());
 			System.out.println("Dealer wins! Better luck next time.");
 			isWinner = true;
-		}
-		else {
+		} else if (draw() == true) {
+			System.out.println(player.playerHand.toString() + " ties " + dealer.dealerHand.toString());
 			System.out.println("The match is a draw.");
+			isWinner = true;
 		}
 		return isWinner;
+	}
+
+	public boolean draw() {
+		boolean draw = false;
+		if (player.playerHand.getHandValue() == dealer.dealerHand.getHandValue()) {
+			draw = true;
+		}
+		return draw;
 	}
 
 	public boolean playerWin() {
@@ -72,12 +80,12 @@ public class BlackJackTable {
 		return winner;
 	}
 
-	public void getHandValues() {
+	public void getHand() {
 		System.out.println("Your hand is " + player.playerHand.toString() + " .");
 		dealer.dealerHand.dealersToString();
 	}
 
-	public void getHandValuesFlipped() {
+	public void getHandFlipped() {
 		player.playerHand.getHandValue();
 		System.out.println();
 		dealer.dealerHand.getHandValue();
@@ -103,13 +111,18 @@ public class BlackJackTable {
 		return blackjackHasOccurred;
 	}
 
-	public boolean checkForBust() {
+	public boolean checkForBustPlayer() {
 		boolean bustHasOccurred = false;
 		if (player.playerHand.isBust()) {
 			System.out.println("You Bust!");
 			bustHasOccurred = true;
 		}
-		if (dealer.dealerHand.isBlackJack()) {
+		return bustHasOccurred;
+	}
+
+	public boolean checkForBustDealer() {
+		boolean bustHasOccurred = false;
+		if (dealer.dealerHand.isBust()) {
 			System.out.println("Dealer Busts!");
 			bustHasOccurred = true;
 		}
