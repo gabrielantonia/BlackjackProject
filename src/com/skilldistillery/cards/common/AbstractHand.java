@@ -12,7 +12,7 @@ public abstract class AbstractHand {
 		cards = new ArrayList<>();
 	}
 	public void addCard(Card card) {
-		cards.remove(card);
+		cards.add(card);
 	}
 	public void addCards(ArrayList<Card> _cards) {
 		cards.addAll(_cards);
@@ -29,9 +29,7 @@ public abstract class AbstractHand {
 				sb.append(card.getRank() + " of " + card.getSuit());
 				sb.append(" and a ");
 			}
-//			sb.delete(start, end)
-//			sb.deleteCharAt(sb.lastIndexOf(" and a "));
-			sb.toString();
+			sb.delete(sb.length()-7, sb.length());
 			return sb.toString();
 		}
 		

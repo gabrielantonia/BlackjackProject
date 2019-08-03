@@ -58,6 +58,6 @@ public class BlackjackHand extends AbstractHand {
 	}
 	public void dealersToString() {
 		
-		System.out.println("Dealer's visible card is a " + cards.get(0).toString() );
+		System.out.println("Dealer's visible card is a " + cards.get(0).toString());
 	}
 }
