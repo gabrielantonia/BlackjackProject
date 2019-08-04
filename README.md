@@ -11,6 +11,8 @@ The dealer is provided with unlimited decks. When a deck card count drops below 
 
 Aces value is dependent upon hand value. If the player has an Ace in their hand and score is greater than 21, Ace value will dynamically change from 11 to 1. Otherwise it will be scored as 11. 
 
+I'm no expert at the rules of Blackjack, my sincerest apologies if I failed to capture the idiosyncrasies of this great American past time.
+
 ## Technologies Used
 * Development - Java
 * IDE - Eclipse
@@ -37,3 +39,4 @@ Aces value is dependent upon hand value. If the player has an Ace in their hand 
 * Add pretty ASCII art for cards and chips
 * Add chip object to bet with instead of cash 
 * Dealer dialogue
+* split/double down
