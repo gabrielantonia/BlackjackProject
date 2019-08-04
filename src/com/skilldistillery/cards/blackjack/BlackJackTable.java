@@ -36,11 +36,12 @@ public class BlackJackTable {
 		}
 	}
 
-	public boolean checkForWinner() {
+	public boolean checkForWinner(int betAmount) {
 		boolean isWinner = false;
 		if (playerWin() == true || checkForBustDealer() == true) {
 			System.out.println(player.playerHand.toString() + " beats " + dealer.dealerHand.toString());
 			System.out.println("You win, great job!");
+			player.wallet+=(betAmount*2);
 			isWinner = true;
 		} else if (dealerWin() == true || checkForBustPlayer() == true) {
 			System.out.println(dealer.dealerHand.toString() + " beats " + player.playerHand.toString());

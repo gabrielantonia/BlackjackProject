@@ -13,6 +13,7 @@ public class BlackjackApp {
 		Scanner scan = new Scanner(System.in);
 		boolean playAgain = true;
 		BlackJackTable theHouse = new BlackJackTable();
+		theHouse.player.wallet = 500;
 		theHouse.deck.shuffle();
 		blackjackIntro();
 		System.out.println("          Welcome to Blackjack!\n\n");
@@ -26,6 +27,14 @@ public class BlackjackApp {
 	}
 
 	private void gameplayLoop(BlackJackTable theHouse, Scanner scan) {
+		theHouse.player.checkWallet();
+		boolean betPlaced = false;
+		int betAmount = 0;
+		while(betPlaced == false) {
+		System.out.println("Place your bet: ");
+		betAmount = scan.nextInt();
+		betPlaced = theHouse.player.placeBet(betAmount);
+		}
 		theHouse.newHand();
 		theHouse.dealer.dealerHand.dealersToString();
 		boolean stay = false;
@@ -51,8 +60,7 @@ public class BlackjackApp {
 				}
 			}
 		}
-		theHouse.checkForWinner();
-
+		theHouse.checkForWinner(betAmount);
 	}
 
 	private boolean playAgain(Scanner scan) {
