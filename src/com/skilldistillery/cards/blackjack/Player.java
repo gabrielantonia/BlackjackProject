@@ -39,7 +39,7 @@ public class Player {
 			
 	}
 	public void lookAroundDialogue() {
-		lookAroundDialogue.add("Well here you are again...familiar territory. Addisons' freshly liberated benjamins are burning a whole in your wallet and it's time to make some magic happen. You order your usual beverage of choice, a Rasberry Cosmo. The uncomfortable greasy pleather seat beneath you squaks at you as you lean in to place a bet. \n ");
+		lookAroundDialogue.add("Well here you are again...familiar territory. Addisons' freshly liberated benjamins are burning a whole in your wallet and it's time to make some magic happen. You order your usual beverage of choice, a Pink Rasberry Cosmo. The uncomfortable greasy pleather seat beneath you squaks at you as you lean in to place a bet. \n ");
 	
 	lookAroundDialogue.add("The suffocating smell of talcum powder and piss floods your nostrils. The smell of the barely here surrounds you. The smell of clinging on, waiting to for one last hurrah before kicking the proverbial bucket. ");
 	lookAroundDialogue.add("Your fingers are beginning to sweat profusely, does the dealer notice? Does he care? How many hopeless shmucks does he sit not three feet from on a daily basis. How does he not go neck himself after witnessing the putrid excuse for humanity that shuffle through this casino like Capitalist zombies.");

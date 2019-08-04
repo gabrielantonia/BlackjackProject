@@ -20,13 +20,12 @@ public class BlackjackApp {
 		theHouse.player.lookAroundDialogue();
 		blackjackIntro();
 		System.out.println("          Welcome to Blackjack!\n\n");
-		System.out.println(theHouse.player.lookAroundDialogue.get(0));
+		System.out.println(theHouse.player.lookAroundDialogue.remove(0));
 		while (playAgain) {
 			gameplayLoop(theHouse, scan);
 			gameOver = gameOver(theHouse);
 			if (gameOver == false) {
 				playAgain = playAgain(scan);
-				theHouse.newDeck(theHouse.deck);
 				theHouse.dealer.dealerHand.clear();
 				theHouse.player.playerHand.clear();
 			} else if (gameOver == true) {
@@ -41,6 +40,7 @@ public class BlackjackApp {
 		boolean betPlaced = false;
 		int betAmount = 5;
 		while (betPlaced == false) {
+			System.out.println("Cards remaining in deck " + theHouse.deck.checkDeckSize());
 			System.out.println("Place your bet: ");
 			boolean valid = false;
 			do {
@@ -80,7 +80,7 @@ public class BlackjackApp {
 			}
 		}
 		theHouse.checkForWinner(betAmount);
-
+		theHouse.newDeck();
 	}
 
 	private boolean gameOver(BlackJackTable theHouse) {
@@ -96,7 +96,7 @@ public class BlackjackApp {
 
 	private boolean playAgain(Scanner scan) {
 		boolean playAgain = true;
-		System.out.println("\n\nPlay again? \n1. Yes\n2. No");
+		System.out.println("\n\nKeep going? \n1. Yes\n2. No");
 		int choice = 0;
 		boolean valid = false;
 		do {

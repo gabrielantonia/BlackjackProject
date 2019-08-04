@@ -30,9 +30,10 @@ public class BlackJackTable {
 		dealer.dealerHand.addCards(deck.dealCards(2));
 	}
 
-	public void newDeck(Deck deck) {
-		if (deck.checkDeckSize() < 10) {
+	public void newDeck() {
+		if (deck.checkDeckSize() < 15) {
 			deck = new Deck();
+			deck.shuffle();
 		}
 	}
 
