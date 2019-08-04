@@ -37,27 +37,8 @@ public class BlackjackHand extends AbstractHand {
 		return bust;
 	}
 
-	public boolean isHard() {
-		boolean hard = false;
-		for (Card card : cards) {
-			if (card.getRank().equals(Rank.ACE) && getHandValue() < 12)
-				;
-			hard = true;
-		}
-		return hard;
-	}
-
-	public boolean isSoft() {
-		boolean soft = false;
-		for (Card card : cards) {
-			if (card.getRank().equals(Rank.ACE) && getHandValue() >= 12)
-				;
-			soft = true;
-		}
-		return soft;
-	}
 	public void dealersToString() {
-		
-		System.out.println("Dealer's visible card is a " + cards.get(0).toString());
+
+		System.out.println("Dealer's visible card is a " + cards.get(0).toString() + ".");
 	}
 }

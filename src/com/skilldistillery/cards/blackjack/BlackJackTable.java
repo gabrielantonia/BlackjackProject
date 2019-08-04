@@ -15,14 +15,14 @@ public class BlackJackTable {
 	public void hitPlayer() {
 		Card card = deck.dealCard();
 		player.playerHand.addCard(card);
-		System.out.println(" A " + card.toString());
+		System.out.println("       ~~A " + card.toString() + "~~");
 	}
 
 	public void hitDealer() {
 		Card card = deck.dealCard();
 		dealer.dealerHand.addCard(card);
 		System.out.println("The dealer hits.");
-		System.out.println(" A " + card.toString());
+		System.out.println("       ~~A " + card.toString() + "~~");
 	}
 
 	public void newHand() {
@@ -38,18 +38,28 @@ public class BlackJackTable {
 
 	public boolean checkForWinner(int betAmount) {
 		boolean isWinner = false;
-		if (playerWin() == true || checkForBustDealer() == true) {
-			System.out.println(player.playerHand.toString() + " beats " + dealer.dealerHand.toString());
+		if (playerWin() == true) {
+			System.out.println(player.playerHand.toString() + " beats " + dealer.dealerHand.toString() + ".");
 			System.out.println("You win, great job!");
-			player.wallet+=(betAmount*2);
+			player.wallet += (betAmount * 2);
 			isWinner = true;
-		} else if (dealerWin() == true || checkForBustPlayer() == true) {
-			System.out.println(dealer.dealerHand.toString() + " beats " + player.playerHand.toString());
+		} else if (checkForBustDealer() == true) {
+			System.out.println("Dealer Busts!");
+			System.out.println("You win, great job!");
+			player.wallet += (betAmount * 2);
+			isWinner = true;
+		} else if (dealerWin() == true) {
+			System.out.println(dealer.dealerHand.toString() + " beats " + player.playerHand.toString() + ".");
+			System.out.println("Dealer wins! Better luck next time.");
+			isWinner = true;
+		} else if (checkForBustPlayer() == true) {
+			System.out.println("You bust!");
 			System.out.println("Dealer wins! Better luck next time.");
 			isWinner = true;
 		} else if (draw() == true) {
-			System.out.println(player.playerHand.toString() + " ties " + dealer.dealerHand.toString());
+			System.out.println(player.playerHand.toString() + " draws " + dealer.dealerHand.toString() + ".");
 			System.out.println("The match is a draw.");
+			player.wallet += betAmount;
 			isWinner = true;
 		}
 		return isWinner;
@@ -82,15 +92,13 @@ public class BlackJackTable {
 	}
 
 	public void getHand() {
-		System.out.println("Your hand is " + player.playerHand.toString() + " .");
+		System.out.println("Your hand is a " + player.playerHand.toString() + " .");
 		dealer.dealerHand.dealersToString();
 	}
 
 	public void getHandFlipped() {
 		player.playerHand.getHandValue();
-		System.out.println();
 		dealer.dealerHand.getHandValue();
-		;
 	}
 
 	public boolean checkForPlayerBlackjack() {
@@ -107,7 +115,7 @@ public class BlackJackTable {
 		if (dealer.dealerHand.isBlackJack()) {
 			System.out.println("Dealer has Blackjack");
 			blackjackHasOccurred = true;
-			System.out.println("Dealer has a " + dealer.dealerHand.toString());
+			System.out.println("Dealer has a " + dealer.dealerHand.toString() + ".");
 		}
 		return blackjackHasOccurred;
 	}
@@ -115,7 +123,6 @@ public class BlackJackTable {
 	public boolean checkForBustPlayer() {
 		boolean bustHasOccurred = false;
 		if (player.playerHand.isBust()) {
-			System.out.println("You Bust!");
 			bustHasOccurred = true;
 		}
 		return bustHasOccurred;
@@ -124,7 +131,6 @@ public class BlackJackTable {
 	public boolean checkForBustDealer() {
 		boolean bustHasOccurred = false;
 		if (dealer.dealerHand.isBust()) {
-			System.out.println("Dealer Busts!");
 			bustHasOccurred = true;
 		}
 		return bustHasOccurred;
