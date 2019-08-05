@@ -15,19 +15,19 @@ public class BlackjackApp {
 		boolean playAgain = true;
 		boolean gameOver = false;
 		BlackJackTable theHouse = new BlackJackTable();
-		theHouse.player.wallet = 500;
-		theHouse.deck.shuffle();
-		theHouse.player.lookAroundDialogue();
+		theHouse.getPlayer().wallet = 500;
+		theHouse.getDeck().shuffle();
+		theHouse.getPlayer().lookAroundDialogue();
 		blackjackIntro();
 		System.out.println("          Welcome to Blackjack!\n\n");
-		System.out.println(theHouse.player.lookAroundDialogue.remove(0));
+		System.out.println(theHouse.getPlayer().lookAroundDialogue.remove(0));
 		while (playAgain) {
 			gameplayLoop(theHouse, scan);
 			gameOver = gameOver(theHouse);
 			if (gameOver == false) {
 				playAgain = playAgain(scan);
-				theHouse.dealer.dealerHand.clear();
-				theHouse.player.playerHand.clear();
+				theHouse.getDealer().dealerHand.clear();
+				theHouse.getPlayer().playerHand.clear();
 			} else if (gameOver == true) {
 				playAgain = false;
 			}
@@ -36,17 +36,17 @@ public class BlackjackApp {
 	}
 
 	private void gameplayLoop(BlackJackTable theHouse, Scanner scan) {
-		theHouse.player.checkWallet();
+		theHouse.getPlayer().checkWallet();
 		boolean betPlaced = false;
 		int betAmount = 5;
 		while (betPlaced == false) {
-			System.out.println("Cards remaining in deck " + theHouse.deck.checkDeckSize());
+			System.out.println("Cards remaining in deck " + theHouse.getDeck().checkDeckSize());
 			System.out.println("Place your bet: ");
 			boolean valid = false;
 			do {
 				try {
 					betAmount = scan.nextInt();
-					betPlaced = theHouse.player.placeBet(betAmount);
+					betPlaced = theHouse.getPlayer().placeBet(betAmount);
 					valid = true;
 				} catch (InputMismatchException e) {
 					System.out.println("Nope try again.");
@@ -55,7 +55,7 @@ public class BlackjackApp {
 			} while (!valid);
 		}
 		theHouse.newHand();
-		theHouse.dealer.dealerHand.dealersToString();
+		theHouse.getDealer().dealerHand.dealersToString();
 		boolean stay = false;
 		while (theHouse.checkForBustDealer() == false && theHouse.checkForBustPlayer() == false && stay == false) {
 			if (theHouse.checkForDealerBlackjack() == true) {
@@ -64,7 +64,7 @@ public class BlackjackApp {
 			} else if (theHouse.checkForPlayerBlackjack() == true) {
 				stay = true;
 				while (theHouse.checkForBustDealer() == false && theHouse.checkForBustPlayer() == false
-						&& theHouse.dealer.dealerHand.getHandValue() <= 17) {
+						&& theHouse.getDealer().dealerHand.getHandValue() <= 17) {
 					theHouse.hitDealer();
 				}
 			} else {
@@ -74,7 +74,7 @@ public class BlackjackApp {
 
 				}
 				while (theHouse.checkForBustDealer() == false && theHouse.checkForBustPlayer() == false
-						&& theHouse.dealer.dealerHand.getHandValue() <= 17) {
+						&& theHouse.getDealer().dealerHand.getHandValue() <= 17) {
 					theHouse.hitDealer();
 				}
 			}
@@ -85,7 +85,7 @@ public class BlackjackApp {
 
 	private boolean gameOver(BlackJackTable theHouse) {
 		boolean gameOver = false;
-		if (theHouse.player.wallet <= 0) {
+		if (theHouse.getPlayer().wallet <= 0) {
 			gameOver = true;
 			System.out.println(
 					"You're screwed man! You're really screwed!! You blew it! Addison is out her stupid Dialysis money and you better get out of town quick before she finds out! You really did it this time! Your mom was right all along, you're a total loser and you bought a one way ticket to an alley dumpster! You're gonna be rat food in the back of P.F.Changs if you don't get outta town quick! Forget going home and getting your stuff you've got to make tracks now.. wait.. a large man in black is walking towards you.. it looks like he's on the phone but who's he tal...");
@@ -126,7 +126,7 @@ public class BlackjackApp {
 
 	private boolean hitOrStay(BlackJackTable theHouse, Scanner scan, boolean stay) {
 
-		System.out.println("Your current hand is " + theHouse.player.playerHand.toString() + ". ");
+		System.out.println("Your current hand is " + theHouse.getPlayer().playerHand.toString() + ". ");
 
 		System.out.println(
 				"Would you like to hit or stay?\n1. Hit\n2. Stay\n3. Get Hand Value\n4. Look at dealers hand\n5. Contemplate");
@@ -154,17 +154,17 @@ public class BlackjackApp {
 			stay = true;
 			break;
 		case 3:
-			System.out.println("Your hand value is " + theHouse.player.playerHand.getHandValue());
+			System.out.println("Your hand value is " + theHouse.getPlayer().playerHand.getHandValue());
 			break;
 		case 4:
 			if (theHouse.checkForDealerBlackjack() == true) {
 
 			} else {
-				theHouse.dealer.dealerHand.dealersToString();
+				theHouse.getDealer().dealerHand.dealersToString();
 			}
 			break;
 		case 5:
-			theHouse.player.lookAround();
+			theHouse.getPlayer().lookAround();
 			break;
 		}
 		return stay;

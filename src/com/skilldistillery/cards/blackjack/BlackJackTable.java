@@ -4,53 +4,53 @@ import com.skilldistillery.cards.common.Card;
 import com.skilldistillery.cards.common.Deck;
 
 public class BlackJackTable {
-	Player player = new Player();
-	Dealer dealer = new Dealer();
-	Deck deck = new Deck();
+	private Player player = new Player();
+	private Dealer dealer = new Dealer();
+	private Deck deck = new Deck();
 
 	public BlackJackTable() {
 		super();
 	}
 
 	public void hitPlayer() {
-		Card card = deck.dealCard();
-		player.playerHand.addCard(card);
+		Card card = getDeck().dealCard();
+		getPlayer().playerHand.addCard(card);
 		System.out.println("       ~~A " + card.toString() + "~~");
 	}
 
 	public void hitDealer() {
-		Card card = deck.dealCard();
-		dealer.dealerHand.addCard(card);
+		Card card = getDeck().dealCard();
+		getDealer().dealerHand.addCard(card);
 		System.out.println("The dealer hits.");
 		System.out.println("       ~~A " + card.toString() + "~~");
 	}
 
 	public void newHand() {
-		player.playerHand.addCards(deck.dealCards(2));
-		dealer.dealerHand.addCards(deck.dealCards(2));
+		getPlayer().playerHand.addCards(getDeck().dealCards(2));
+		getDealer().dealerHand.addCards(getDeck().dealCards(2));
 	}
 
 	public void newDeck() {
-		if (deck.checkDeckSize() < 15) {
-			deck = new Deck();
-			deck.shuffle();
+		if (getDeck().checkDeckSize() < 15) {
+			setDeck(new Deck());
+			getDeck().shuffle();
 		}
 	}
 
 	public boolean checkForWinner(int betAmount) {
 		boolean isWinner = false;
 		if (playerWin() == true) {
-			System.out.println(player.playerHand.toString() + " beats " + dealer.dealerHand.toString() + ".");
+			System.out.println(getPlayer().playerHand.toString() + " beats " + getDealer().dealerHand.toString() + ".");
 			System.out.println("You win, great job!");
-			player.wallet += (betAmount * 2);
+			getPlayer().wallet += (betAmount * 2);
 			isWinner = true;
 		} else if (checkForBustDealer() == true) {
 			System.out.println("Dealer Busts!");
 			System.out.println("You win, great job!");
-			player.wallet += (betAmount * 2);
+			getPlayer().wallet += (betAmount * 2);
 			isWinner = true;
 		} else if (dealerWin() == true) {
-			System.out.println(dealer.dealerHand.toString() + " beats " + player.playerHand.toString() + ".");
+			System.out.println(getDealer().dealerHand.toString() + " beats " + getPlayer().playerHand.toString() + ".");
 			System.out.println("Dealer wins! Better luck next time.");
 			isWinner = true;
 		} else if (checkForBustPlayer() == true) {
@@ -58,9 +58,9 @@ public class BlackJackTable {
 			System.out.println("Dealer wins! Better luck next time.");
 			isWinner = true;
 		} else if (draw() == true) {
-			System.out.println(player.playerHand.toString() + " draws " + dealer.dealerHand.toString() + ".");
+			System.out.println(getPlayer().playerHand.toString() + " draws " + getDealer().dealerHand.toString() + ".");
 			System.out.println("The match is a draw.");
-			player.wallet += betAmount;
+			getPlayer().wallet += betAmount;
 			isWinner = true;
 		}
 		return isWinner;
@@ -68,7 +68,7 @@ public class BlackJackTable {
 
 	public boolean draw() {
 		boolean draw = false;
-		if (player.playerHand.getHandValue() == dealer.dealerHand.getHandValue()) {
+		if (getPlayer().playerHand.getHandValue() == getDealer().dealerHand.getHandValue()) {
 			draw = true;
 		}
 		return draw;
@@ -76,8 +76,8 @@ public class BlackJackTable {
 
 	public boolean playerWin() {
 		boolean winner = false;
-		if (player.playerHand.getHandValue() > dealer.dealerHand.getHandValue()
-				&& player.playerHand.getHandValue() < 22) {
+		if (getPlayer().playerHand.getHandValue() > getDealer().dealerHand.getHandValue()
+				&& getPlayer().playerHand.getHandValue() < 22) {
 			winner = true;
 		}
 		return winner;
@@ -85,26 +85,26 @@ public class BlackJackTable {
 
 	public boolean dealerWin() {
 		boolean winner = false;
-		if (player.playerHand.getHandValue() < dealer.dealerHand.getHandValue()
-				&& dealer.dealerHand.getHandValue() < 22) {
+		if (getPlayer().playerHand.getHandValue() < getDealer().dealerHand.getHandValue()
+				&& getDealer().dealerHand.getHandValue() < 22) {
 			winner = true;
 		}
 		return winner;
 	}
 
 	public void getHand() {
-		System.out.println("Your hand is a " + player.playerHand.toString() + " .");
-		dealer.dealerHand.dealersToString();
+		System.out.println("Your hand is a " + getPlayer().playerHand.toString() + " .");
+		getDealer().dealerHand.dealersToString();
 	}
 
 	public void getHandFlipped() {
-		player.playerHand.getHandValue();
-		dealer.dealerHand.getHandValue();
+		getPlayer().playerHand.getHandValue();
+		getDealer().dealerHand.getHandValue();
 	}
 
 	public boolean checkForPlayerBlackjack() {
 		boolean blackjackHasOccurred = false;
-		if (player.playerHand.isBlackJack()) {
+		if (getPlayer().playerHand.isBlackJack()) {
 			System.out.println("You have Blackjack!");
 			blackjackHasOccurred = true;
 		}
@@ -113,17 +113,17 @@ public class BlackJackTable {
 
 	public boolean checkForDealerBlackjack() {
 		boolean blackjackHasOccurred = false;
-		if (dealer.dealerHand.isBlackJack()) {
+		if (getDealer().dealerHand.isBlackJack()) {
 			System.out.println("Dealer has Blackjack");
 			blackjackHasOccurred = true;
-			System.out.println("Dealer has a " + dealer.dealerHand.toString() + ".");
+			System.out.println("Dealer has a " + getDealer().dealerHand.toString() + ".");
 		}
 		return blackjackHasOccurred;
 	}
 
 	public boolean checkForBustPlayer() {
 		boolean bustHasOccurred = false;
-		if (player.playerHand.isBust()) {
+		if (getPlayer().playerHand.isBust()) {
 			bustHasOccurred = true;
 		}
 		return bustHasOccurred;
@@ -131,9 +131,33 @@ public class BlackJackTable {
 
 	public boolean checkForBustDealer() {
 		boolean bustHasOccurred = false;
-		if (dealer.dealerHand.isBust()) {
+		if (getDealer().dealerHand.isBust()) {
 			bustHasOccurred = true;
 		}
 		return bustHasOccurred;
+	}
+
+	public Deck getDeck() {
+		return deck;
+	}
+
+	public void setDeck(Deck deck) {
+		this.deck = deck;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	public Dealer getDealer() {
+		return dealer;
+	}
+
+	public void setDealer(Dealer dealer) {
+		this.dealer = dealer;
 	}
 }
